@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const protect = (req, res, next) => {
+export const protect = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer "))
@@ -10,7 +10,7 @@ export const protect = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    req.user = decoded; // decoded contains id and role
     next();
   } catch (error) {
     res.status(401).json({ message: "Invalid token" });

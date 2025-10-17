@@ -1,5 +1,5 @@
 import express from "express";
-import ProviderProfile from "../models/ProviderProfile.js";
+import ServiceProviderProfile from "../models/ServiceProviderProfile.js";
 import { protect, role } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -20,7 +20,9 @@ router.get("/", protect, role(["admin"]), async (req, res) => {
 // GET my provider profile (provider)
 router.get("/me", protect, role(["provider"]), async (req, res) => {
   try {
-    const profile = await ProviderProfile.findOne({ userId: req.user.id });
+    const profile = await ServiceProviderProfile.findOne({
+      userId: req.user.id,
+    });
     res.json(profile);
   } catch (err) {
     res.status(500).json({ message: err.message });
