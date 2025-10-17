@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 
 const serviceSchema = new mongoose.Schema({
-  title: String,
-  description: String,
+  name: String,
   category: String,
+  description: String,
+  provider: String,
   price: String,
-  addedBy: String,
-  image: String
+  image: String,
 });
 
-export default mongoose.model("Service", serviceSchema);
+const Service = mongoose.model("Service", serviceSchema);
+export default Service;
